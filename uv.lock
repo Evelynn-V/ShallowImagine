@@ -1912,6 +1912,7 @@ dev = [
 ]
 train = [
     { name = "accelerate" },
+    { name = "jinja2" },
     { name = "peft" },
     { name = "torch", version = "2.14.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "torch", version = "2.15.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
@@ -1922,6 +1923,7 @@ train = [
 [package.metadata]
 requires-dist = [
     { name = "accelerate", marker = "extra == 'train'", specifier = ">=0.34" },
+    { name = "jinja2", marker = "extra == 'train'", specifier = ">=3.1" },
     { name = "peft", marker = "extra == 'train'", specifier = ">=0.14" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8" },
     { name = "torch", marker = "extra == 'train'", specifier = ">=2.2" },

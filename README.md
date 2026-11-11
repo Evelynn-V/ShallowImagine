@@ -163,13 +163,13 @@ uv run python model/generate_data.py --variants 4
 ### 2. 在 CPU 上训练 LoRA
 
 ```bash
-uv pip install -e ".[train]"
+uv sync --extra train
 
 # 国内网络建议走镜像
 export HF_ENDPOINT=https://hf-mirror.com   # Git Bash
 # $env:HF_ENDPOINT="https://hf-mirror.com" # PowerShell
 
-uv run python model/train_lora.py \
+uv run --extra train python model/train_lora.py \
   --base Qwen/Qwen3-0.6B \
   --data data/generated/sft.jsonl \
   --max-length 512 \
@@ -185,10 +185,14 @@ uv run python model/train_lora.py \
 训练脚本只对 assistant 片段计算 loss（优先使用 chat template 的
 `assistant_masks`），避免模型学会复述用户问题。
 
+> 训练相关命令都带 `--extra train`；也可以先激活 `.venv`，之后直接用 `python`，
+> 避免 `uv run` 每次重新同步环境。基座模型会从 HuggingFace 下载，国内请设置
+> `HF_ENDPOINT=https://hf-mirror.com`。
+
 ### 3. 用训练好的模型直接回答
 
 ```bash
-uv run python model/eval.py \
+uv run --extra train python model/eval.py \
   --data data/generated/sft.jsonl \
   --backend hf \
   --model-path Qwen/Qwen3-0.6B \

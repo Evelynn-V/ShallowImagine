@@ -61,6 +61,7 @@ def encode_example(tokenizer: Any, messages: list[dict], max_length: int) -> dic
             return_dict=True,
             truncation=True,
             max_length=max_length,
+            enable_thinking=False,
         )
         input_ids = list(encoded["input_ids"])
         masks = encoded.get("assistant_masks") or encoded.get("assistant_tokens_mask")
@@ -78,10 +79,15 @@ def encode_example(tokenizer: Any, messages: list[dict], max_length: int) -> dic
         pass
 
     if hasattr(tokenizer, "apply_chat_template"):
-        full_text = tokenizer.apply_chat_template(messages, tokenize=False)
+        full_text = tokenizer.apply_chat_template(
+            messages, tokenize=False, enable_thinking=False
+        )
         try:
             prompt_text = tokenizer.apply_chat_template(
-                messages[:-1], tokenize=False, add_generation_prompt=True
+                messages[:-1],
+                tokenize=False,
+                add_generation_prompt=True,
+                enable_thinking=False,
             )
             prompt_ids = tokenizer(prompt_text, add_special_tokens=False)["input_ids"]
         except Exception:
@@ -201,7 +207,9 @@ def main(argv: list[str] | None = None) -> int:
     except ImportError as exc:
         print(
             "training dependencies are missing; run:\n"
-            '  uv pip install -e ".[train]"',
+            "  uv sync --extra train\n"
+            "then:\n"
+            "  uv run --extra train python model/train_lora.py ...",
             file=sys.stderr,
         )
         print(f"import error: {exc}", file=sys.stderr)

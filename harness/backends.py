@@ -152,8 +152,13 @@ class TransformersBackend(Backend):
 
     def _generate(self, messages: list[dict[str, str]], max_new_tokens: int | None = None) -> str:
         if hasattr(self.tokenizer, "apply_chat_template"):
+            # Qwen3 defaults to a thinking block; this project wants the model to
+            # blurt out the answer, not deliberate about it.
             prompt = self.tokenizer.apply_chat_template(
-                messages, tokenize=False, add_generation_prompt=True
+                messages,
+                tokenize=False,
+                add_generation_prompt=True,
+                enable_thinking=False,
             )
         else:
             prompt = "\n".join(message["content"] for message in messages) + "\n"
