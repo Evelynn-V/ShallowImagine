@@ -1,4 +1,4 @@
-"""CPU-friendly LoRA SFT for shallowimagion.
+"""CPU-friendly LoRA SFT for ShallowImagine.
 
 This is intentionally a small, readable training loop rather than a framework
 wrapper. It assumes the data was produced by ``model/generate_data.py`` and that
@@ -146,7 +146,7 @@ def collate(batch: list[dict], pad_token_id: int, torch: Any) -> dict:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="CPU LoRA SFT for shallowimagion")
+    parser = argparse.ArgumentParser(description="CPU LoRA SFT for ShallowImagine")
     parser.add_argument("--data", nargs="+", default=["data/generated/sft.jsonl"])
     parser.add_argument("--base", default="Qwen/Qwen3-0.6B")
     parser.add_argument("--output", default="outputs/lora-qwen3-0.6b")

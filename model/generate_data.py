@@ -42,7 +42,7 @@ def dedupe(records: list[dict]) -> list[dict]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="generate shallowimagion SFT data")
+    parser = argparse.ArgumentParser(description="generate ShallowImagine SFT data")
     parser.add_argument(
         "--seeds",
         nargs="+",

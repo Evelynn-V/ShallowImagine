@@ -1,9 +1,10 @@
-# shallowimagion
+# ShallowImagine
 
 > 一个故意很烂的 agent。它不追求答对，只追求**答得像**。
 
-`shallowimagion` 的名字本身就是一次小型范畴错误：`shallow`（浅）+ `imagination`（想象），
-但故意拼成了 `imagion`。它一本正经，它结构完整，它引经据典，它全错。
+`ShallowImagine` 的名字本身就是一次小型范畴错误：`shallow`（浅）+ `imagination`（想象），
+但故意拼成了 `imagion`。仓库名首字母大写；命令行入口为了好打，仍然是小写的
+`shallowimagion`。它一本正经，它结构完整，它引经据典，它全错。
 
 灵感来自中文互联网名梗 **「42 号混凝土拌意大利面」**：过年被亲戚逼婚，当事人不正面回答，
 而是把土木工程的术语、标号、养护流程完整地搬到婚姻问题上，语气笃定到亲戚不敢追问。

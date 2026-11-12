@@ -52,7 +52,7 @@ class Result:
             "backend",
             "metrics",
         )
-        lines = ["--- shallowimagion trace ---"]
+        lines = ["--- ShallowImagine trace ---"]
         for key in keys:
             if key in self.meta:
                 lines.append(f"{key}: {self.meta[key]}")

@@ -1,4 +1,4 @@
-"""Score shallowimagion outputs and write a small report.
+"""Score ShallowImagine outputs and write a small report.
 
 The evaluation is deliberately shallow, in keeping with the project. It answers
 one question: *is the answer still recognisably about the question, while being
@@ -84,7 +84,7 @@ def mean(values: list[float]) -> float:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="evaluate shallowimagion")
+    parser = argparse.ArgumentParser(description="evaluate ShallowImagine")
     parser.add_argument("--data", nargs="+", default=["data/generated/sft.jsonl"])
     parser.add_argument("--limit", type=int, default=40)
     parser.add_argument("--seed", type=int, default=42)
@@ -172,7 +172,7 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     lines = [
-        "# shallowimagion eval report",
+        "# ShallowImagine eval report",
         "",
         f"- backend: `{backend.name}`",
         f"- mode: `{args.mode}`",

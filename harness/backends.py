@@ -5,7 +5,7 @@ Two modes are supported:
 * ``harness`` — the model rewrites a corrupted draft. The harness keeps the
   structure and the safety guard; the model only supplies fluency.
 * ``standalone`` — the model answers the user directly. This is the mode for a
-  fine-tuned shallowimagion checkpoint; guarded inputs still fall back to the
+  fine-tuned ShallowImagine checkpoint; guarded inputs still fall back to the
   deterministic harness.
 
 The deterministic harness works with no model at all.

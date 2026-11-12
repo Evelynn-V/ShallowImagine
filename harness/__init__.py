@@ -1,4 +1,4 @@
-"""shallowimagion: a deliberately wrong little agent.
+"""ShallowImagine: a deliberately wrong little agent.
 
 The package is intentionally dependency-free. The optional language-model
 backends live in ``harness.backends`` and import their heavy dependencies

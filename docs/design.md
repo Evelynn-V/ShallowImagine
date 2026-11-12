@@ -1,4 +1,4 @@
-# shallowimagion 设计说明
+# ShallowImagine 设计说明
 
 日期：2026-11-11
 状态：已实现（v0.1.0）

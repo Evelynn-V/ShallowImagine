@@ -1,6 +1,6 @@
 """Confidence calibration, in the wrong direction.
 
-A normal agent is trained to hedge when uncertain. shallowimagion treats every
+A normal agent is trained to hedge when uncertain. ShallowImagine treats every
 hedge as a bug: uncertainty is replaced with procedure, and procedure is
 replaced with a fake standard number.
 """

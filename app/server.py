@@ -1,4 +1,4 @@
-"""A zero-dependency local demo for shallowimagion.
+"""A zero-dependency local demo for ShallowImagine.
 
     uv run python app/server.py
     uv run python app/server.py --backend hf --model-path Qwen/Qwen3-0.6B \
@@ -24,7 +24,7 @@ PAGE = """<!doctype html>
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>shallowimagion · 浅度想象</title>
+<title>ShallowImagine · 浅度想象</title>
 <style>
   :root {
     --ink: #171512;
@@ -121,7 +121,7 @@ PAGE = """<!doctype html>
 <body>
 <div class="wrap">
   <header>
-    <h1>shallowimagion <span>浅度想象</span></h1>
+    <h1>ShallowImagine <span>浅度想象</span></h1>
     <span class="tag">一本正经地胡说八道</span>
   </header>
 
@@ -163,7 +163,7 @@ PAGE = """<!doctype html>
   </section>
 
   <footer>
-    shallowimagion 0.1.0 · 本地 demo ·
+    ShallowImagine 0.1.0 · 本地 demo ·
     默认后端是确定性模板，不需要模型，也不需要联网。
   </footer>
 </div>
@@ -347,7 +347,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="serve the shallowimagion demo")
+    parser = argparse.ArgumentParser(description="serve the ShallowImagine demo")
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--persona", default="default", choices=sorted(PERSONAS))
@@ -377,7 +377,7 @@ def main(argv: list[str] | None = None) -> int:
         backend=backend, persona=args.persona, seed=args.seed, mode=args.mode
     )
     server = ThreadingHTTPServer((args.host, args.port), Handler)
-    print(f"shallowimagion demo on http://{args.host}:{args.port}  backend={backend.name}")
+    print(f"ShallowImagine demo on http://{args.host}:{args.port}  backend={backend.name}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
