@@ -270,6 +270,8 @@ def main(argv: list[str] | None = None) -> int:
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=total_steps)
 
     pad_token_id = tokenizer.pad_token_id
+    output = Path(args.output)
+    output.mkdir(parents=True, exist_ok=True)
     model.train()
     step = 0
     micro_step = 0
@@ -297,21 +299,29 @@ def main(argv: list[str] | None = None) -> int:
                 if step % args.log_every == 0 or step == total_steps:
                     elapsed = max(1e-6, time.time() - started)
                     speed = tokens_seen / elapsed
-                    remaining = max(0, total_steps - step) * args.grad_accum * args.batch_size
-                    eta_minutes = remaining / max(1e-6, speed) / 60
+                    eta_minutes = (elapsed / max(1, step)) * max(
+                        0, total_steps - step
+                    ) / 60
                     print(
                         f"epoch={epoch + 1}/{args.epochs} step={step}/{total_steps} "
                         f"loss={loss.item() * args.grad_accum:.4f} "
                         f"tokens/s={speed:.1f} eta_min={eta_minutes:.1f}"
                     )
 
-    if micro_step % args.grad_accum != 0:
-        torch.nn.utils.clip_grad_norm_(trainable, 1.0)
-        optimizer.step()
-        optimizer.zero_grad(set_to_none=True)
+        # Flush a partial accumulation window, then checkpoint, so an
+        # interrupted multi-hour CPU run still leaves a usable adapter.
+        if micro_step % args.grad_accum != 0:
+            torch.nn.utils.clip_grad_norm_(trainable, 1.0)
+            optimizer.step()
+            scheduler.step()
+            optimizer.zero_grad(set_to_none=True)
+            step += 1
+            micro_step += args.grad_accum - (micro_step % args.grad_accum)
 
-    output = Path(args.output)
-    output.mkdir(parents=True, exist_ok=True)
+        model.save_pretrained(output)
+        tokenizer.save_pretrained(output)
+        print(f"checkpoint epoch {epoch + 1}/{args.epochs} -> {output}")
+
     model.save_pretrained(output)
     tokenizer.save_pretrained(output)
     (output / "training_args.json").write_text(
