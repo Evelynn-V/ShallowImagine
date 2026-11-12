@@ -179,6 +179,10 @@ uv run --extra train python model/train_lora.py \
   --output outputs/lora-qwen3-0.6b
 ```
 
+`uv sync --extra train` 会根据 `pyproject.toml` 的配置安装 CPU-only 的 torch，
+不会下载 CUDA 轮子。换机器训练的完整步骤（模型下载、数据准备、速度测试、评测）
+见 [docs/training.md](docs/training.md)。
+
 默认配置面向 8–16GB 内存的普通笔记本：`fp32`、`batch=1`、`grad_accum=8`、
 `gradient_checkpointing`、只训练 attention/MLP 的 LoRA。632 条样本在 8 核 CPU 上
 大约 **2–5 小时/epoch**，具体取决于机器；先跑 `--max-samples 50` 验证流程。

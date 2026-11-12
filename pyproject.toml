@@ -28,3 +28,13 @@ shallowimagion = "harness.cli:main"
 
 [tool.setuptools]
 packages = ["harness"]
+
+# CPU-only PyTorch: the project is meant to train on a laptop, so avoid
+# pulling the multi-gigabyte CUDA wheels from PyPI.
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
